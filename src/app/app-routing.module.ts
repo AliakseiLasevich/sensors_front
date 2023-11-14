@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {
-  authorizedGuard,
-  notAuthorizedGuard,
+  authorizedGuard, notAuthorizedGuard,
 } from './features/auth/guards/auth.guard';
 import { LoginComponent } from './features/auth/login/login.component';
 import { NotFoundComponent } from './shared/not-found/not-found.component';

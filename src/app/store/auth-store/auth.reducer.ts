@@ -1,5 +1,4 @@
 import { createReducer, on } from '@ngrx/store';
-import { BackendErrorInterface } from 'src/app/core/models/backendErrors.interface';
 import { loginAction, loginFailure, loginSuccess } from './auth.actions';
 
 export interface AuthState {

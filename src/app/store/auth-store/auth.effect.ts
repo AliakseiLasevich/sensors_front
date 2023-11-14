@@ -42,7 +42,7 @@ export class AuthEffects {
         ofType(ActionTypes.LOGIN_SUCCESS),
         tap((response: AuthResponseInterface) => {
           this.storeToken(response);
-          // this.router.navigateByUrl('/sensors');
+          this.router.navigateByUrl('/sensors');
         })
       ),
     { dispatch: false }
