@@ -50,7 +50,6 @@ export class AuthEffects {
 
   private storeToken(response: AuthResponseInterface) {
     this.persistanceService.set('token', response.access_token.token);
-    this.persistanceService.set('token', response.access_token.token);
     this.persistanceService.set(
       'token_expiresIn',
       response.access_token.expires_in.toString()
