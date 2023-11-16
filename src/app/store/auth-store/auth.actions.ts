@@ -1,5 +1,4 @@
 import { createAction, props } from '@ngrx/store';
-import { BackendErrorInterface } from 'src/app/core/models/backendErrors.interface';
 import {
   AuthRequestInterface,
   AuthResponseInterface,
@@ -20,3 +19,10 @@ export const loginFailure = createAction(
   ActionTypes.LOGIN_FAILURE,
   props<{ error: string }>()
 );
+
+export const logoutAction = createAction(ActionTypes.LOGOUT);
+
+export const logoutSuccess = createAction(ActionTypes.LOGOUT_SUCCESS);
+
+export const logoutFailure = createAction(ActionTypes.LOGOUT_FAILURE,
+  props<{ error: string }>());

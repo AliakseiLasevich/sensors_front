@@ -11,12 +11,12 @@ export class HeaderComponent implements OnInit {
   constructor(private authFacade: AuthStoreFacade) {}
 
   isLoggedIn$: Observable<boolean>;
-  
+
   ngOnInit(): void {
     this.isLoggedIn$ = this.authFacade.loggedIn$;
   }
 
   logout() {
-    console.log('log out');
+    this.authFacade.logout();
   }
 }

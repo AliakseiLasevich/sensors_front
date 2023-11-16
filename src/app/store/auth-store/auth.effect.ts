@@ -7,7 +7,12 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap, tap } from 'rxjs';
 import { AuthService } from '../../services/auth-services/auth.service';
 import { ActionTypes } from './auth.actionTypes';
-import { loginFailure, loginSuccess } from './auth.actions';
+import {
+  loginFailure,
+  loginSuccess,
+  logoutFailure,
+  logoutSuccess,
+} from './auth.actions';
 
 @Injectable()
 export class AuthEffects {
@@ -25,7 +30,7 @@ export class AuthEffects {
         return this.authService.authenticate(userData).pipe(
           map((response: AuthResponseInterface) =>
             loginSuccess({
-              access_token: response.access_token
+              access_token: response.access_token,
             })
           ),
           catchError((error) => {
@@ -36,23 +41,43 @@ export class AuthEffects {
     )
   );
 
+  logoutEffect$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ActionTypes.LOGOUT),
+      switchMap(() => {
+        return this.authService.logout().pipe(
+          map(() => {
+            return logoutSuccess();
+          }),
+          catchError(({ error }) => {
+            return of(logoutFailure(error));
+          })
+        );
+      })
+    )
+  );
+
+  logoutSuccessfulEffect$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(ActionTypes.LOGOUT_SUCCESS),
+        tap(() => {
+          this.router.navigateByUrl('/login');
+        })
+      ),
+    { dispatch: false }
+  );
+
   storeTokenInLocalStorage$ = createEffect(
     () =>
       this.actions$.pipe(
         ofType(ActionTypes.LOGIN_SUCCESS),
         tap((response: AuthResponseInterface) => {
-          this.storeToken(response);
+          this.persistanceService.storeToken(response);
           this.router.navigateByUrl('/sensors');
         })
       ),
     { dispatch: false }
   );
 
-  private storeToken(response: AuthResponseInterface) {
-    this.persistanceService.set('token', response.access_token.token);
-    this.persistanceService.set(
-      'token_expiresIn',
-      response.access_token.expires_in.toString()
-    );
-  }
 }

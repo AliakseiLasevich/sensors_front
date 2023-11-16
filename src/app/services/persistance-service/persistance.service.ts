@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { AuthResponseInterface } from 'src/app/core/models/auth.interfaces';
 
 @Injectable({ providedIn: 'root' })
 export class PersistanceService {
@@ -21,5 +22,14 @@ export class PersistanceService {
       console.error('Error getting data from the localStorage', e);
       return '';
     }
+  }
+
+  delete(key: string) {
+    localStorage.removeItem(key);
+  }
+
+  storeToken(response: AuthResponseInterface) {
+    this.set('token', response.access_token.token);
+    this.set('token_expiresIn', response.access_token.expires_in.toString());
   }
 }
