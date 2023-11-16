@@ -17,7 +17,8 @@ import {
 export class AuthStoreFacade {
   loggedIn$: Observable<boolean> = this.store.select(selectIsLoggedIn);
   isLoading$: Observable<boolean> = this.store.select(selectIsLoading);
-  accessToken$: Observable<string|null> = this.store.select(selectAccessToken);
+  accessToken$: Observable<string | null> =
+    this.store.select(selectAccessToken);
   error: Observable<string | null> = this.store.select(selectError);
 
   constructor(private store: Store<AuthState>) {}
@@ -26,7 +27,7 @@ export class AuthStoreFacade {
     this.store.dispatch(loginAction({ userData }));
   }
 
-  logout(){
-    this.store.dispatch(logoutAction())
+  logout() {
+    this.store.dispatch(logoutAction());
   }
 }

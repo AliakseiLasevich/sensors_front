@@ -18,7 +18,7 @@ import { SensorsEffects } from './store/sensors-store/sensors.effects';
 import { sensorsReducer } from './store/sensors-store/sensors.reducer';
 
 @NgModule({
-  declarations: [AppComponent, SensorsTableComponent],
+  declarations: [AppComponent],
   imports: [
     SharedModule,
     BrowserModule,
