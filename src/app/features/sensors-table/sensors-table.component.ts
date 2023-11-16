@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { Component, Input, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Observable } from 'rxjs';
 import { SensorResponseInterface } from 'src/app/core/models/sensor.interfaces';
 import { SensorsFacade } from 'src/app/store/sensors-store/sensors.facade';
 
@@ -11,35 +11,45 @@ import { SensorsFacade } from 'src/app/store/sensors-store/sensors.facade';
   templateUrl: './sensors-table.component.html',
   styleUrls: ['./sensors-table.component.scss'],
 })
-export class SensorsTableComponent implements OnInit {
-  displayedColumns: string[] = [
-    'name',
-    'model',
-    'type',
-    'range',
-    'unit',
-    'location',
-    'description',
-  ];
-  dataSource: MatTableDataSource<SensorResponseInterface>;
-
-  sensors: SensorResponseInterface[];
-  sensors$: Observable<SensorResponseInterface[]>;
-
+export class SensorsTableComponent implements OnInit, OnDestroy {
+  @Input() isEditable: boolean;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  dataSource: MatTableDataSource<SensorResponseInterface>;
+  displayedColumns: string[];
+  subscriptions: Subscription[] = [];
+
+  constructor(private sensorsFacade: SensorsFacade) {}
 
   ngOnInit(): void {
     this.sensorsFacade.getAllSensors();
-    this.sensors$ = this.sensorsFacade.allSensors$;
-    this.sensors$.subscribe((sensors) => {
-      this.dataSource = new MatTableDataSource(sensors);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    });
+    const sensorsSubsctiption = this.sensorsFacade.allSensors$.subscribe(
+      (sensors) => {
+        this.dataSource = new MatTableDataSource(sensors);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      }
+    );
+    this.subscriptions.push(sensorsSubsctiption);
+
+    this.displayedColumns = [
+      'name',
+      'model',
+      'type',
+      'range',
+      'unit',
+      'location',
+      'description',
+    ];
+
+    if (this.isEditable) {
+      this.displayedColumns.push('tools');
+    }
   }
 
-  constructor(private sensorsFacade: SensorsFacade) {}
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((sub) => sub.unsubscribe());
+  }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;

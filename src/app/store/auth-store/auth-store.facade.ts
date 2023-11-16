@@ -9,6 +9,7 @@ import {
   selectError,
   selectIsLoading,
   selectIsLoggedIn,
+  selectRoles,
 } from './auth.selectors';
 
 @Injectable({
@@ -20,6 +21,7 @@ export class AuthStoreFacade {
   accessToken$: Observable<string | null> =
     this.store.select(selectAccessToken);
   error: Observable<string | null> = this.store.select(selectError);
+  userRoles$: Observable<string[]> = this.store.select(selectRoles);
 
   constructor(private store: Store<AuthState>) {}
 

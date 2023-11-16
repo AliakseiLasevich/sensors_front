@@ -31,6 +31,7 @@ export class AuthEffects {
           map((response: AuthResponseInterface) =>
             loginSuccess({
               access_token: response.access_token,
+              roles: this.authService.extractRolesFromToken(response.access_token.token)
             })
           ),
           catchError((error) => {

@@ -14,8 +14,10 @@ import {
 import {
   AuthRequestInterface,
   AuthResponseInterface,
+  TokenInterface,
 } from '../../core/models/auth.interfaces';
 import { PersistanceService } from '../persistance-service/persistance.service';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root',
@@ -41,7 +43,7 @@ export class AuthService {
       .pipe(switchMap(() => of(200)));
   }
 
-  public getAuthHeaders(): HttpHeaders | null {
+  getAuthHeaders(): HttpHeaders | null {
     const token = this.persistanceService.get('token');
     if (token) {
       const headers = new HttpHeaders({
@@ -50,5 +52,16 @@ export class AuthService {
       return headers;
     }
     return null;
+  }
+
+  extractRolesFromToken(token: string): string[] {
+    try {
+      const decodedToken: any = jwtDecode(token);
+      const roles: string[] = decodedToken.roles || [];
+      return roles;
+    } catch (error) {
+      console.error('Error decoding JWT token:', error);
+      return [];
+    }
   }
 }

@@ -5,6 +5,7 @@ export interface AuthRequestInterface {
 
 export interface AuthResponseInterface {
   access_token: TokenInterface;
+  roles: string[];
 }
 
 export interface TokenInterface {

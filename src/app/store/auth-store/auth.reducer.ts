@@ -13,6 +13,7 @@ export interface AuthState {
   loading: boolean;
   accessToken: string | null;
   error: string | null;
+  userRoles: string[];
 }
 
 const initialState: AuthState = {
@@ -20,6 +21,7 @@ const initialState: AuthState = {
   loading: false,
   accessToken: null,
   error: null,
+  userRoles: [],
 };
 
 export const authReducer = createReducer(
@@ -30,6 +32,7 @@ export const authReducer = createReducer(
     loading: false,
     loggedIn: true,
     accessToken: payload.access_token.token,
+    userRoles: payload.roles,
   })),
   on(loginFailure, (state, payload) => ({ ...state, error: payload.error })),
 
@@ -39,6 +42,7 @@ export const authReducer = createReducer(
     loading: false,
     loggedIn: false,
     accessToken: null,
+    userRoles: [],
   })),
   on(logoutFailure, (state, payload) => ({ ...state, error: payload.error }))
 );
