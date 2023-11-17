@@ -56,7 +56,7 @@ export const sensorsReducer = createReducer(
     return {
       ...state,
       isSingleSensorLoading: false,
-      sensor: response,
+      allSensors: [...state.allSensors, response],
     };
   }),
   on(requestCreateSensorFailure, (state, { error }) => ({

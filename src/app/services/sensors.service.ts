@@ -23,7 +23,7 @@ export class SensorsService {
     sensor: SensorRequestInterface
   ): Observable<SensorResponseInterface> {
     return this.http.post<SensorResponseInterface>(
-      `${this.url}/sensors/add`,
+      `${this.url}/sensors`,
       sensor
     );
   }

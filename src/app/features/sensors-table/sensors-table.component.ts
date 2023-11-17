@@ -21,7 +21,7 @@ export class SensorsTableComponent implements OnInit, OnDestroy {
   displayedColumns: string[];
   subscriptions: Subscription[] = [];
 
-  constructor(private sensorsFacade: SensorsFacade, public dialog: MatDialog) {}
+  constructor(private sensorsFacade: SensorsFacade, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.sensorsFacade.getAllSensors();

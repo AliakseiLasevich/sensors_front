@@ -53,34 +53,26 @@
         </mat-form-field>
 
         <mat-form-field>
-            <mat-label>Type</mat-label>
+            <mat-label>Unit</mat-label>
             <mat-select formControlName="unit">
                 <mat-option *ngFor="let unit of units;" [value]="unit[0]"> {{unit[1]}}</mat-option>
             </mat-select>
-            <mat-error *ngIf="form.controls['type'].hasError('required')">
+            <mat-error *ngIf="form.controls['unit'].hasError('required')">
                 Enter the type
             </mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="fill" class="full-width">
-            <mat-label>Unit</mat-label>
-            <input matInput type="text" formControlName="unit" placeholder="Unit" autocomplete="new-password"
-                required />
-            <mat-error *ngIf="form.controls['type'].hasError('required')">
-                Enter the unit
-            </mat-error>
-        </mat-form-field>
+
 
         <mat-form-field appearance="fill" class="full-width">
             <mat-label>Location</mat-label>
-            <input matInput type="text" formControlName="location" placeholder="Location" autocomplete="new-password"
-                required />
+            <input matInput type="text" formControlName="location" placeholder="Location" autocomplete="new-password"/>
         </mat-form-field>
 
         <mat-form-field appearance="fill" class="full-width">
             <mat-label>Description</mat-label>
             <textarea matInput type="text" formControlName="description" placeholder="Description"
-                autocomplete="new-password" required>
+                autocomplete="new-password">
             </textarea>
         </mat-form-field>
 

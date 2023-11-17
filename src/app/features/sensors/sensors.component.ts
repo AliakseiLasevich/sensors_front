@@ -1,7 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Observable, Subscription } from 'rxjs';
 import { UserRoles } from 'src/app/core/models/userRoles';
 import { AuthStoreFacade } from 'src/app/store/auth-store/auth-store.facade';
+import { SensorFormComponent } from '../sensor-form/sensor-form.component';
 
 @Component({
   selector: 'app-sensors',
@@ -13,7 +15,7 @@ export class SensorsComponent implements OnInit, OnDestroy {
   userRoles$: Observable<string[]>;
   subscriptions: Subscription[] = [];
 
-  constructor(private authFacade: AuthStoreFacade) {}
+  constructor(private authFacade: AuthStoreFacade, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.userRoles$ = this.authFacade.userRoles$;
@@ -29,7 +31,9 @@ export class SensorsComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach((sub) => sub.unsubscribe());
   }
 
-  addSensor() {
-    throw new Error('Method not implemented.');
+  openSensorForm(): void {
+    this.dialog.open(SensorFormComponent, {
+      data: { sensor: null },
+    });
   }
 }
