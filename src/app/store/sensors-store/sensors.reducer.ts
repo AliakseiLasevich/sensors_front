@@ -95,14 +95,9 @@ export const sensorsReducer = createReducer(
     isSingleSensorLoading: true,
   })),
   on(requestDeleteSensorSuccess, (state, { id }) => {
-    console.log(id);
-
     const filteredSensors = state.allSensors.filter(
       (sensor) => sensor.id !== id
     );
-    console.log(state.allSensors);
-    console.log(filteredSensors);
-
     return {
       ...state,
       allSensors: filteredSensors,

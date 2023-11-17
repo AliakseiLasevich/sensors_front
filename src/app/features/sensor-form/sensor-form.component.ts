@@ -39,8 +39,6 @@ export class SensorFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.data);
-
     this.initializeForm();
     this.populateForm();
   }
