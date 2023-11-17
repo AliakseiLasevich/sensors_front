@@ -1,6 +1,3 @@
 <app-header></app-header>
-
-
-<app-sensors-table [isEditable]="isAdmin">
-
-</app-sensors-table>
+<app-sensors-table [isEditable]="isAdmin"></app-sensors-table>
+<button mat-button (click)="addSensor()" *ngIf="isAdmin">Add sensor</button>

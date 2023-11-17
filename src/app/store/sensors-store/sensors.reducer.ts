@@ -10,9 +10,9 @@ import {
   requestDeleteSensor,
   requestDeleteSensorFailure,
   requestDeleteSensorSuccess,
-  requestEditSensor,
-  requestEditSensorFailure,
-  requestEditSensorSuccess,
+  requestUpdateSensor,
+  requestUpdateSensorFailure,
+  requestUpdateSensorSuccess,
 } from './sensors.actions';
 
 export const sensorsFeatureKey = 'sensors';
@@ -65,16 +65,25 @@ export const sensorsReducer = createReducer(
     errorMessage: error,
   })),
 
-  // EDIT SENSOR
-  on(requestEditSensor, (state) => ({ ...state, isSingleSensorLoading: true })),
-  on(requestEditSensorSuccess, (state, { response }) => {
+  // UPDATE SENSOR
+  on(requestUpdateSensor, (state) => ({
+    ...state,
+    isSingleSensorLoading: true,
+  })),
+  on(requestUpdateSensorSuccess, (state, { response }) => {
+    const updatedSensors = state.allSensors.map((sensor) => {
+      if (sensor.id === response.id) {
+        return response;
+      }
+      return sensor;
+    });
     return {
       ...state,
       isSingleSensorLoading: false,
-      sensor: response,
+      allSensors: updatedSensors,
     };
   }),
-  on(requestEditSensorFailure, (state, { error }) => ({
+  on(requestUpdateSensorFailure, (state, { error }) => ({
     ...state,
     isSingleSensorLoading: false,
     errorMessage: error,

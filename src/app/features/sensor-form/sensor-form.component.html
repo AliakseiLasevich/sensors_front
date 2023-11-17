@@ -1,0 +1,95 @@
+<h1 class="dialog-title">
+    <ng-container *ngIf="data?.sensor?.id; else fallback">
+        Edit sensor
+    </ng-container>
+    <ng-template #fallback> Add new sensor </ng-template>
+</h1>
+
+<div class="dialog-content">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+<mat-form-field appearance="fill" class="full-width">
+    <mat-label>Name</mat-label>
+    <input matInput type="text" formControlName="name" placeholder="Name" autocomplete="new-password" required />
+    <mat-error>{{ errorMessage('name') }}</mat-error>
+    <mat-error *ngIf="form.get('name')?.hasError('maxLength')">Max 30 characters. Current length: {{ form.get('name')?.value.length }}</mat-error>
+</mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Model</mat-label>
+            <input matInput type="text" formControlName="model" placeholder="Model" autocomplete="new-password"
+                required />
+            <mat-error *ngIf="form.controls['model'].hasError('required')">
+                Enter the model
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Range from</mat-label>
+            <input matInput type="number" formControlName="rangeFrom" placeholder="Range from"
+                autocomplete="new-password" required />
+            <mat-error *ngIf="form.controls['rangeFrom'].hasError('required')">
+                Enter the range from
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Range to</mat-label>
+            <input matInput type="number" formControlName="rangeTo" placeholder="Range to" autocomplete="new-password"
+                required />
+            <mat-error *ngIf="form.controls['rangeTo'].hasError('required')">
+                Enter the range to
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Type</mat-label>
+            <mat-select formControlName="type">
+                <mat-option *ngFor="let type of types;" [value]="type"> {{type}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.controls['type'].hasError('required')">
+                Enter the type
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Type</mat-label>
+            <mat-select formControlName="unit">
+                <mat-option *ngFor="let unit of units;" [value]="unit[0]"> {{unit[1]}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.controls['type'].hasError('required')">
+                Enter the type
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Unit</mat-label>
+            <input matInput type="text" formControlName="unit" placeholder="Unit" autocomplete="new-password"
+                required />
+            <mat-error *ngIf="form.controls['type'].hasError('required')">
+                Enter the unit
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Location</mat-label>
+            <input matInput type="text" formControlName="location" placeholder="Location" autocomplete="new-password"
+                required />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Description</mat-label>
+            <textarea matInput type="text" formControlName="description" placeholder="Description"
+                autocomplete="new-password" required>
+            </textarea>
+        </mat-form-field>
+
+
+        <div class="dialog-actions">
+            <button mat-raised-button color="primary" type="submit" [mat-dialog-close]="true">
+                Save
+            </button>
+
+        </div>
+    </form>
+</div>

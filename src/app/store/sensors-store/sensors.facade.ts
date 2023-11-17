@@ -5,7 +5,7 @@ import {
   requestAllSensors,
   requestCreateSensor,
   requestDeleteSensor,
-  requestEditSensor,
+  requestUpdateSensor,
 } from './sensors.actions';
 import { SensorsState } from './sensors.reducer';
 import {
@@ -32,8 +32,8 @@ export class SensorsFacade {
     this.store.pipe(select(selectSensorById(id)));
   }
 
-  editSensor(sensor: SensorRequestInterface, id: string) {
-    this.store.dispatch(requestEditSensor({ id, sensor }));
+  updateSensor(sensor: SensorRequestInterface, id: number) {
+    this.store.dispatch(requestUpdateSensor({ id, sensor }));
   }
   createSensor(sensor: SensorRequestInterface) {
     this.store.dispatch(requestCreateSensor({ sensor }));

@@ -9,7 +9,6 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './features/auth/auth.module';
-import { SensorsTableComponent } from './features/sensors-table/sensors-table.component';
 import { AuthInterceptor } from './services/auth-services/auth.interceptor';
 import { SharedModule } from './shared/shared.module';
 import { AuthEffects } from './store/auth-store/auth.effect';

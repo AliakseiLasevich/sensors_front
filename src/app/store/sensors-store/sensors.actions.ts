@@ -33,16 +33,16 @@ export const requestCreateSensorFailure = createAction(
 );
 
 // EDIT SENSOR
-export const requestEditSensor = createAction(
-  SensorsConstants.REQUEST_EDIT_SENSOR,
-  props<{ id: string; sensor: SensorRequestInterface }>()
+export const requestUpdateSensor = createAction(
+  SensorsConstants.REQUEST_UPDATE_SENSOR,
+  props<{ id: number; sensor: SensorRequestInterface }>()
 );
-export const requestEditSensorSuccess = createAction(
-  SensorsConstants.REQUEST_EDIT_SENSOR_SUCCESS,
+export const requestUpdateSensorSuccess = createAction(
+  SensorsConstants.REQUEST_UPDATE_SENSOR_SUCCESS,
   props<{ response: SensorResponseInterface }>()
 );
-export const requestEditSensorFailure = createAction(
-  SensorsConstants.REQUEST_EDIT_SENSOR_FAIL,
+export const requestUpdateSensorFailure = createAction(
+  SensorsConstants.REQUEST_UPDATE_SENSOR_FAIL,
   props<{ error: string }>()
 );
 
@@ -53,7 +53,7 @@ export const requestDeleteSensor = createAction(
 );
 export const requestDeleteSensorSuccess = createAction(
   SensorsConstants.REQUEST_DELETE_SENSOR_SUCCESS,
-  props<{ id : number }>()
+  props<{ id: number }>()
 );
 export const requestDeleteSensorFailure = createAction(
   SensorsConstants.REQUEST_DELETE_SENSOR_FAIL,

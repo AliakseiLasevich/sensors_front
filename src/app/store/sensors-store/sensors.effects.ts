@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap } from 'rxjs';
+import { SensorsService } from 'src/app/services/sensors.service';
 import {
   requestAllSensorsFailure,
   requestAllSensorsSuccess,
@@ -9,11 +10,10 @@ import {
   requestCreateSensorSuccess,
   requestDeleteSensorFailure,
   requestDeleteSensorSuccess,
-  requestEditSensorFailure,
-  requestEditSensorSuccess,
+  requestUpdateSensorFailure,
+  requestUpdateSensorSuccess,
 } from './sensors.actions';
 import { SensorsConstants } from './sensors.constants';
-import { SensorsService } from 'src/app/services/sensors.service';
 
 @Injectable({ providedIn: 'root' })
 export class SensorsEffects {
@@ -51,14 +51,14 @@ export class SensorsEffects {
     )
   );
 
-  editSensor$ = createEffect(() =>
+  updateSensor$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(SensorsConstants.REQUEST_EDIT_SENSOR),
+      ofType(SensorsConstants.REQUEST_UPDATE_SENSOR),
       switchMap(({ id, sensor }) => {
         return this.sensorsService.editSensor(id, sensor).pipe(
-          map((response) => requestEditSensorSuccess({ response })),
+          map((response) => requestUpdateSensorSuccess({ response })),
           catchError((error) => {
-            return of(requestEditSensorFailure(error));
+            return of(requestUpdateSensorFailure(error));
           })
         );
       })

@@ -1,10 +1,12 @@
 import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 import { SensorResponseInterface } from 'src/app/core/models/sensor.interfaces';
 import { SensorsFacade } from 'src/app/store/sensors-store/sensors.facade';
+import { SensorFormComponent } from '../sensor-form/sensor-form.component';
 
 @Component({
   selector: 'app-sensors-table',
@@ -19,7 +21,7 @@ export class SensorsTableComponent implements OnInit, OnDestroy {
   displayedColumns: string[];
   subscriptions: Subscription[] = [];
 
-  constructor(private sensorsFacade: SensorsFacade) {}
+  constructor(private sensorsFacade: SensorsFacade, public dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.sensorsFacade.getAllSensors();
@@ -39,7 +41,6 @@ export class SensorsTableComponent implements OnInit, OnDestroy {
       'range',
       'unit',
       'location',
-      'description',
     ];
 
     if (this.isEditable) {
@@ -67,5 +68,11 @@ export class SensorsTableComponent implements OnInit, OnDestroy {
 
   deleteSensor(sensorId: number) {
     this.sensorsFacade.deleteSensor(sensorId);
+  }
+
+  openSensorForm(sensor?: SensorResponseInterface): void {
+    this.dialog.open(SensorFormComponent, {
+      data: { sensor: sensor || null },
+    });
   }
 }
