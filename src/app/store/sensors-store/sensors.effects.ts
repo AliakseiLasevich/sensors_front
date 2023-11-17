@@ -42,7 +42,7 @@ export class SensorsEffects {
       ofType(SensorsConstants.REQUEST_DELETE_SENSOR),
       switchMap(({ id }) => {
         return this.sensorsService.deleteSensor(id).pipe(
-          map((response) => requestDeleteSensorSuccess({ response })),
+          map(() => requestDeleteSensorSuccess({ id })),
           catchError((error) => {
             return of(requestDeleteSensorFailure(error));
           })

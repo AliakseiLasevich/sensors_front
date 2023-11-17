@@ -44,7 +44,11 @@
 
     <ng-container matColumnDef="tools">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> tools </th>
-      <td mat-cell *matCellDef="let row"> tools here </td>
+      <td mat-cell *matCellDef="let row">
+      <button mat-button>Edit</button>  
+      <button mat-button (click)="deleteSensor(row.id)">Delete</button>  
+      
+      </td>
     </ng-container>
 
 

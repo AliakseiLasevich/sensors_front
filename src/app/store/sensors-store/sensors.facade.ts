@@ -38,7 +38,7 @@ export class SensorsFacade {
   createSensor(sensor: SensorRequestInterface) {
     this.store.dispatch(requestCreateSensor({ sensor }));
   }
-  deleteSensor(id: string) {
+  deleteSensor(id: number) {
     this.store.dispatch(requestDeleteSensor({ id }));
   }
 }

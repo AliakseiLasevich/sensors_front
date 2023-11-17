@@ -46,7 +46,7 @@ export class SensorsService {
     return this.http.get<SensorResponseInterface>(url);
   }
 
-  deleteSensor(id: string) {
+  deleteSensor(id: number) {
     const url = `${this.url}/sensors/${id}`;
     return this.http.delete<string>(url);
   }

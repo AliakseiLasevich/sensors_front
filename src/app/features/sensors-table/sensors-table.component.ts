@@ -1,8 +1,8 @@
-import { Subscription } from 'rxjs';
-import { Component, Input, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Subscription } from 'rxjs';
 import { SensorResponseInterface } from 'src/app/core/models/sensor.interfaces';
 import { SensorsFacade } from 'src/app/store/sensors-store/sensors.facade';
 
@@ -63,5 +63,9 @@ export class SensorsTableComponent implements OnInit, OnDestroy {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  deleteSensor(sensorId: number) {
+    this.sensorsFacade.deleteSensor(sensorId);
   }
 }

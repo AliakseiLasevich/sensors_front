@@ -49,11 +49,11 @@ export const requestEditSensorFailure = createAction(
 // DELETE SENSOR
 export const requestDeleteSensor = createAction(
   SensorsConstants.REQUEST_DELETE_SENSOR,
-  props<{ id: string }>()
+  props<{ id: number }>()
 );
 export const requestDeleteSensorSuccess = createAction(
   SensorsConstants.REQUEST_DELETE_SENSOR_SUCCESS,
-  props<{ response: string }>()
+  props<{ id : number }>()
 );
 export const requestDeleteSensorFailure = createAction(
   SensorsConstants.REQUEST_DELETE_SENSOR_FAIL,

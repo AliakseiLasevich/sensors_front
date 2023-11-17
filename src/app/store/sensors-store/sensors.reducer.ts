@@ -64,7 +64,7 @@ export const sensorsReducer = createReducer(
     isSingleSensorLoading: false,
     errorMessage: error,
   })),
-  
+
   // EDIT SENSOR
   on(requestEditSensor, (state) => ({ ...state, isSingleSensorLoading: true })),
   on(requestEditSensorSuccess, (state, { response }) => {
@@ -85,9 +85,18 @@ export const sensorsReducer = createReducer(
     ...state,
     isSingleSensorLoading: true,
   })),
-  on(requestDeleteSensorSuccess, (state, { response }) => {
+  on(requestDeleteSensorSuccess, (state, { id }) => {
+    console.log(id);
+
+    const filteredSensors = state.allSensors.filter(
+      (sensor) => sensor.id !== id
+    );
+    console.log(state.allSensors);
+    console.log(filteredSensors);
+
     return {
       ...state,
+      allSensors: filteredSensors,
       isSingleSensorLoading: false,
     };
   }),
@@ -95,5 +104,5 @@ export const sensorsReducer = createReducer(
     ...state,
     isSingleSensorLoading: false,
     errorMessage: error,
-  })),
+  }))
 );
