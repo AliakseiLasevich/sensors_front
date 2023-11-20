@@ -12,14 +12,14 @@
             <mat-label>Name</mat-label>
             <input matInput type="text" formControlName="name" placeholder="Name" autocomplete="new-password"
                 required />
-            <mat-error>{{ errorMessage('name, 30) }}</mat-error>
+            <mat-error>{{ errorMessage('name', 30) }}</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="fill" class="full-width">
             <mat-label>Model</mat-label>
             <input matInput type="text" formControlName="model" placeholder="Model" autocomplete="new-password"
                 required />
-                <mat-error>{{ errorMessage('model, 15) }}</mat-error>
+                <mat-error>{{ errorMessage('model', 15) }}</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="fill" class="full-width">
