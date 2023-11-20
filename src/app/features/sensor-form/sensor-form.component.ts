@@ -105,9 +105,9 @@ export class SensorFormComponent implements OnInit {
   errorMessage(controlName: string, maxLength?: number): string {
     const form: FormControl = this.form.get(controlName) as FormControl;
     return form.hasError('required')
-      ? 'Input the' + controlName
+      ? 'Input the ' + controlName
       : form.hasError('maxlength')
-      ? 'Max length is' + maxLength
+      ? 'Max length is ' + maxLength
       : form.hasError('rangeError')
       ? 'Range from should be less than range to.'
       : '';
