@@ -8,37 +8,32 @@
 <div class="dialog-content">
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
-<mat-form-field appearance="fill" class="full-width">
-    <mat-label>Name</mat-label>
-    <input matInput type="text" formControlName="name" placeholder="Name" autocomplete="new-password" required />
-    <mat-error>{{ errorMessage('name') }}</mat-error>
-    <mat-error *ngIf="form.get('name')?.hasError('maxLength')">Max 30 characters. Current length: {{ form.get('name')?.value.length }}</mat-error>
-</mat-form-field>
+        <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Name</mat-label>
+            <input matInput type="text" formControlName="name" placeholder="Name" autocomplete="new-password"
+                required />
+            <mat-error>{{ errorMessage('name, 30) }}</mat-error>
+        </mat-form-field>
 
         <mat-form-field appearance="fill" class="full-width">
             <mat-label>Model</mat-label>
             <input matInput type="text" formControlName="model" placeholder="Model" autocomplete="new-password"
                 required />
-            <mat-error *ngIf="form.controls['model'].hasError('required')">
-                Enter the model
-            </mat-error>
+                <mat-error>{{ errorMessage('model, 15) }}</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="fill" class="full-width">
             <mat-label>Range from</mat-label>
             <input matInput type="number" formControlName="rangeFrom" placeholder="Range from"
                 autocomplete="new-password" required />
-            <mat-error *ngIf="form.controls['rangeFrom'].hasError('required')">
-                Enter the range from
-            </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="fill" class="full-width">
             <mat-label>Range to</mat-label>
             <input matInput type="number" formControlName="rangeTo" placeholder="Range to" autocomplete="new-password"
                 required />
-            <mat-error *ngIf="form.controls['rangeTo'].hasError('required')">
-                Enter the range to
+            <mat-error *ngIf="form.hasError('rangeError') && form.get('rangeTo')?.dirty;">
+                Range from should be before Range to
             </mat-error>
         </mat-form-field>
 
@@ -66,7 +61,7 @@
 
         <mat-form-field appearance="fill" class="full-width">
             <mat-label>Location</mat-label>
-            <input matInput type="text" formControlName="location" placeholder="Location" autocomplete="new-password"/>
+            <input matInput type="text" formControlName="location" placeholder="Location" autocomplete="new-password" />
         </mat-form-field>
 
         <mat-form-field appearance="fill" class="full-width">
@@ -78,7 +73,7 @@
 
 
         <div class="dialog-actions">
-            <button mat-raised-button color="primary" type="submit" [mat-dialog-close]="true">
+            <button mat-raised-button color="primary" type="submit" [mat-dialog-close]="true" [disabled]="!form.valid">
                 Save
             </button>
 

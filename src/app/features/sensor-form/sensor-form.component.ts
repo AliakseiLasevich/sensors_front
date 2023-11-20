@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import {
+  AbstractControl,
   FormBuilder,
   FormControl,
   FormGroup,
@@ -16,6 +17,7 @@ import {
   SensorRequestInterface,
   SensorResponseInterface,
 } from 'src/app/core/models/sensor.interfaces';
+import { RangeValidator } from 'src/app/shared/validators/range-validator';
 import { SensorsFacade } from 'src/app/store/sensors-store/sensors.facade';
 
 @Component({
@@ -44,22 +46,25 @@ export class SensorFormComponent implements OnInit {
   }
 
   initializeForm() {
-    this.form = this.formBuilder.group({
-      name: [null, [Validators.required, Validators.maxLength(30)]],
-      model: [null, [Validators.required, Validators.maxLength(15)]],
-      rangeFrom: [
-        null,
-        [Validators.required, Validators.pattern(this.numericPattern)],
-      ],
-      rangeTo: [
-        null,
-        [Validators.required, Validators.pattern(this.numericPattern)],
-      ],
-      type: [null, [Validators.required]],
-      unit: [null, [Validators.required]],
-      location: [null, []],
-      description: [null, []],
-    });
+    this.form = this.formBuilder.group(
+      {
+        name: [null, [Validators.required, Validators.maxLength(30)]],
+        model: [null, [Validators.required, Validators.maxLength(15)]],
+        rangeFrom: [
+          null,
+          [Validators.required, Validators.pattern(this.numericPattern), ],
+        ],
+        rangeTo: [
+          null,
+          [Validators.required, Validators.pattern(this.numericPattern)],
+        ],
+        type: [null, [Validators.required]],
+        unit: [null, [Validators.required]],
+        location: [null, []],
+        description: [null, []],
+      }, {validators: RangeValidator.validator}
+    );
+
   }
 
   populateForm() {
@@ -103,6 +108,8 @@ export class SensorFormComponent implements OnInit {
       ? 'Input the' + controlName
       : form.hasError('maxlength')
       ? 'Max length is' + maxLength
+      : form.hasError('rangeError')
+      ? 'Range from should be less than range to.'
       : '';
   }
 }
